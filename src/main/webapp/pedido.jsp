@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="tu.paquete.Producto" %>
-<%@ page import="tu.paquete.ProductoModelo" %>
+<%@ page import="entidades.Producto" %>
+<%@ page import="modelos.ProductoModelo" %>
+<%@ page import="java.util.List" %>
     
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,7 @@
             %>
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="<%= producto.getImagen() %>" class="card-img-top" alt="<%= producto.getDescripcion() %>">
+                    <img src="<%= producto.getFoto() %>" class="card-img-top" alt="<%= producto.getDescripcion() %>">
                     <div class="card-body">
                         <h5 class="card-title"><%= producto.getDescripcion() %></h5>
                         <p class="card-text">Precio: $<%= producto.getPrecio() %></p>
