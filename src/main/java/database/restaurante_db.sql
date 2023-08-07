@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS restaurante_db;
+
 CREATE DATABASE restaurante_db;
 
 USE restaurante_db;
@@ -28,9 +30,11 @@ CREATE TABLE roles_permisos (
 );
 
 CREATE TABLE cliente (
-    id_persona INT PRIMARY KEY,
-    -- Agregar otros campos específicos del cliente si es necesario
-    FOREIGN KEY (id_persona) REFERENCES persona(id_persona)
+   id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+   id_persona INT NULL,
+	ruc CHAR(11) NULL,
+	contacto VARCHAR(50) NULL,
+   FOREIGN KEY (id_persona) REFERENCES persona(id_persona)
 );
 
 CREATE TABLE mesa (
@@ -41,8 +45,10 @@ CREATE TABLE mesa (
 CREATE TABLE producto (
     id_producto INT PRIMARY KEY AUTO_INCREMENT,
     descripcion VARCHAR(100) NOT NULL,
-    precio DECIMAL(10, 2) NOT NULL
+    precio DECIMAL(10, 2) NOT NULL,
+    foto VARCHAR(30) null
 );
+
 
 CREATE TABLE empleado (
     id_persona INT PRIMARY KEY,
@@ -76,8 +82,8 @@ CREATE TABLE comprobante_pago (
     id_pedido INT NOT NULL,
     id_cliente INT NOT NULL,
     tipo_comprobante VARCHAR(50) NOT NULL,
-    fecha DATE NOT NULL,
-    porcentaje_igv DECIMAL(5, 2) NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    igv DECIMAL(10, 2) NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
     FOREIGN KEY (id_cliente) REFERENCES cliente(id_persona)
@@ -115,6 +121,8 @@ INSERT INTO pedido (id_empleado, id_mesa) VALUES (1, 1);
 INSERT INTO pedido_producto (id_pedido, id_producto, cantidad) VALUES (1, 1, 2);
 INSERT INTO pedido_producto (id_pedido, id_producto, cantidad) VALUES (1, 2, 1);
 
-INSERT INTO comprobante_pago (id_pedido, id_cliente, tipo_comprobante, fecha, porcentaje_igv, total) VALUES (1, 1, 'Boleta', '2023-08-06', 18.00, 32.50);
+INSERT INTO comprobante_pago (id_pedido, id_cliente, tipo_comprobante, fecha, igv, total) VALUES (1, 1, 'Boleta', '2023-08-06', 27.54, 32.50);
 
 SELECT * FROM producto
+
+-- SELECT * FROM comprobante_pago

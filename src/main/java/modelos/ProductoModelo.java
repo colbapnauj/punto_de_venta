@@ -60,10 +60,15 @@ public class ProductoModelo implements ProductoInterface{
 		
 		try {
 			cn = MysqlConexion.getConexion();
-			String sql = "INSERT INTO producto VALUES(null, ?, ?)";
+			// TODO Load image
+			//String sql = "INSERT INTO producto VALUES(null, ?, ?, ?)";
+			String sql = "INSERT INTO producto VALUES(null, ?, ?, null)";
 			psm = cn.prepareStatement(sql);
 			psm.setString(1, producto.getDescripcion());
 			psm.setDouble(2, producto.getPrecio());
+//			if (producto.getFoto() != null) {
+//				psm.setString(3, producto.getFoto());				
+//			}
 			
 			
 			value = psm.executeUpdate();
@@ -158,7 +163,7 @@ public class ProductoModelo implements ProductoInterface{
 		
 		try {
 			cn = MysqlConexion.getConexion();
-			String sql = "UPDATE producto SET descripcion=?, precio=?, WHERE id_producto=?";
+			String sql = "UPDATE producto SET descripcion=?, precio=? WHERE id_producto=?";
 			psm = cn.prepareStatement(sql);
 			psm.setString(1, producto.getDescripcion());
 			psm.setDouble(2, producto.getPrecio());

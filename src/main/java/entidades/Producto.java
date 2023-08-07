@@ -4,15 +4,25 @@ public class Producto {
 	private int idProducto;
 	private String descripcion;
 	private double precio;
+	private String foto;
 	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	public Producto() {
 	}
 	
-	public Producto(int idProducto, String descripcion, double precio) {
+	public Producto(int idProducto, String descripcion, double precio, String foto) {
 		super();
 		this.idProducto = idProducto;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.foto = foto;
 	}
 	public int getIdProducto() {
 		return idProducto;
