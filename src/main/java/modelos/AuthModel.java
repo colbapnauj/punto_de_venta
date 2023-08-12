@@ -21,7 +21,7 @@ public class AuthModel implements AuthInterface{
 		try {
 			
 			cn = MysqlConexion.getConexion();
-			String mysql = "SELECT em.usuario, pe.nombre, ro.nombre, em.password\r\n"
+			String mysql = "SELECT id_persona, em.usuario, pe.nombre, ro.nombre AS role_name, em.password\r\n"
 					+ "FROM empleado AS em\r\n"
 					+ "INNER JOIN persona AS pe ON em.id_persona = pe.id_persona\r\n"
 					+ "INNER JOIN roles AS ro ON em.id_role = ro.id_role\r\n"
@@ -32,7 +32,7 @@ public class AuthModel implements AuthInterface{
 			
 			psmt = cn.prepareStatement(mysql);
 			psmt.setString(1, usuario);
-			psmt.setString(2, password);
+			// psmt.setString(2, password);
 			rs = psmt.executeQuery();
 			
 			
@@ -49,8 +49,9 @@ public class AuthModel implements AuthInterface{
 			
 			if (isValid) {
 				empleado = new Empleado();
+				empleado.setIdPersona(rs.getInt("id_persona"));
 				empleado.setNombre(rs.getString("nombre"));
-				empleado.setDocumento(mysql);
+				empleado.setRol(rs.getString("role_name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,10 +68,12 @@ public class AuthModel implements AuthInterface{
 		
 	}
 	
-	private String hashPassword(String plainPassword) {
+	public String hashPassword(String plainPassword) {
         String salt = BCrypt.gensalt();
         return  BCrypt.hashpw(plainPassword, salt);
     }
+	
+	
 	
 
 }
