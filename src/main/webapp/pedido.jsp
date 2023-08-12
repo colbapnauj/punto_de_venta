@@ -3,6 +3,18 @@
 <%@ page import="modelos.ProductoModelo"%>
 <%@ page import="java.util.List" %>
 
+<%
+    String mesaParam = request.getParameter("mesa");
+
+    if (mesaParam != null && !mesaParam.isEmpty()) {
+        int mesa = Integer.parseInt(mesaParam);
+
+        ProductoModelo model = new ProductoModelo();
+        List<Producto> dataProductos = model.obtenerProductos();
+
+        request.setAttribute("dataProductos", dataProductos);
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +37,7 @@
 }
 
 .producto-img {
-    width: 100%;
+    max-width: 100%;
 }
 
 .producto-overlay {
@@ -49,7 +61,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 5px 10px;
     border-radius: 5px;
     font-family: cursive, sans-serif;
@@ -59,42 +71,49 @@
 <body style="background-image: url('img/fondo.jpg'); background-size: cover; background-repeat: repeat-y; width:100%; height: 100%; margin: 0; padding: 0;">
     <%@ include file="menu.jsp"%>
     <div class="container">
+        <h1 class="text-center mt-3">Mesa ${param.mesa}</h1>
         <h1 class="text-center mt-3">Productos</h1>
-        <div class="producto-container mt-3">
-            <% 
-            List<Producto> dataProductos = (List<Producto>) request.getAttribute("dataProductos");
-            
-            
-            
-            
-            if (dataProductos != null && !dataProductos.isEmpty()) {
-                for (Producto producto : dataProductos) { 
-            %>
-                <div class="producto-item" id="producto<%=producto.getIdProducto()%>">
-                    <div class="producto-overlay"></div>
-                    <%
-                    String photoPath = "/PuntoDeVenta/" + "upload/" + producto.getFoto();
-                    %>
-                    <img class="producto-img" src="<%=producto.getFoto()%>" alt="Producto <%=producto.getIdProducto()%>">
-                    <div class="producto-nombre">
-                        Producto: <%=producto.getDescripcion()%><br>
-                        Descripción: <%=producto.getDescripcion()%><br>
-                        Precio: <%=producto.getPrecio()%>
+        <form action="PedidoServlet?type=add" method="post"> 
+            <div class="row">
+                <% 
+                List<Producto> dataProductos = (List<Producto>) request.getAttribute("dataProductos");
+                
+                if (dataProductos != null && !dataProductos.isEmpty()) {
+                    for (Producto producto : dataProductos) { 
+                %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card position-relative" style="background-color: rgba(255, 255, 255, 0.3);"> 
+                            <img class="card-img-top" src="<%=producto.getFoto()%>" alt="Producto <%=producto.getIdProducto()%>">
+                            <div class="producto-overlay"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: <%=producto.getDescripcion()%></h5>
+                                <p class="card-text">Descripción: <%=producto.getDescripcion()%><br>
+                                    Precio: <%=producto.getPrecio()%></p>
+                                <div class="form-group">
+                                    <label for="cantidad<%=producto.getIdProducto()%>">Cantidad:</label>
+                                    <input type="number" class="form-control" id="cantidad<%=producto.getIdProducto()%>" name="cantidad<%=producto.getIdProducto()%>" value="1" min="1">
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="seleccion<%=producto.getIdProducto()%>" name="seleccion<%=producto.getIdProducto()%>" value="<%=producto.getIdProducto()%>">
+                                    <label class="form-check-label" for="seleccion<%=producto.getIdProducto()%>">Seleccionar</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            <% 
+                <% 
+                    } 
+                } else {
+                %>
+                    <p>No hay productos disponibles.</p>
+                <% 
                 } 
-            } else {
-            %>
-                <p>No hay productos disponibles.</p>
-            <% 
-            } 
-            %>
-        </div>
+                %>
+            </div>
+            <button type="submit" class="btn btn-success">Agregar al Pedido</button>
+        </form>
     </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
