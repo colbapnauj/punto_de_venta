@@ -4,7 +4,6 @@
 <html>
 <head>
 <title>Restaurante - Inicio de sesión</title>
-<!-- Enlaces a Bootstrap CSS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link
@@ -13,9 +12,14 @@
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 <style>
-/* Estilos personalizados para centrar verticalmente y aumentar el tamaño del texto */
 html, body {
 	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-image: url('img/fondo.jpg'); 
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 body {
@@ -24,36 +28,44 @@ body {
 	justify-content: center;
 }
 
-
+.container {
+	background-color: rgba(200, 255, 200, 0.8); 
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
 .form-group label {
 	font-size: 20px;
-	/* Tamaño de fuente para las etiquetas de los campos */
+	color: #333; 
 }
 
 .form-control {
-	font-size: 18px; /* Tamaño de fuente para los campos de entrada */
+	font-size: 18px;
 }
 
 .btn {
-	font-size: 20px; /* Tamaño de fuente para el botón */
+	font-size: 20px;
 }
+
 </style>
 </head>
 <body>
     <div class="container">
         <h1 class="mt-5">Inicio de Sesión</h1>
-        <form action="login" method="post" class="mt-3">
+        <form action="LoginServlet" method="post" class="mt-3">
             <div class="mb-3">
                 <label for="username" class="form-label">Usuario</label>
-                <input type="text" name="username" id="username" class="form-control" required>
+                <input type="text" name="txtUsername" id="username" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <input type="password" name="txtPassword" id="password" class="form-control" required>
             </div>
+                 <input type="hidden" name="type" value="login">       
             <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
         </form>
     </div>
 </body>
 </html>
+
