@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 			AuthInterface model = new AuthModel();
 			
 			Empleado empleado = model.verificarInicioSesion(username, password);
+			
 			if (empleado != null) {
 				SessionProject sessionProject = new SessionProject();
 				sessionProject.saveSessionTimeOut(request, 30);
@@ -51,6 +52,15 @@ public class LoginServlet extends HttpServlet {
 			SessionProject sessionProject = new SessionProject();
 			sessionProject.invalidateSession(request);
 			response.sendRedirect("index.jsp");
+		} else if (type.equals("create")) {
+			
+			String password = request.getParameter("txtPassword");
+			
+			AuthModel model= new AuthModel();
+			String hashedPassword = model.hashPassword(password);
+			System.out.println(hashedPassword);
+			response.sendRedirect("index.jsp");
+			
 		}
 	}
 }
