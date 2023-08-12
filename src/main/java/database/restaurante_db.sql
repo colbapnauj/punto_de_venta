@@ -105,8 +105,8 @@ INSERT INTO persona (nombre, tipo_documento, documento) VALUES ('María Gómez',
 
 INSERT INTO cliente (id_persona) VALUES (1);
 
-INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (1, 1, 'usuario1', 'password123');
-INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (2, 2, 'usuario2', 'qwerty456');
+INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (1, 1, 'usuario1', '$2a$10$tgj9nkzsOd9t.u9bSszxDOXmYG1eNBO56T5nxRp0GVIiIMcqNOT9W');
+INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (2, 2, 'usuario2', '$2a$10$tgj9nkzsOd9t.u9bSszxDOXmYG1eNBO56T5nxRp0GVIiIMcqNOT9W');
 
 INSERT INTO producto (descripcion, precio) VALUES ('Pizza Margarita', 10.99);
 INSERT INTO producto (descripcion, precio) VALUES ('Hamburguesa Clásica', 8.50);
