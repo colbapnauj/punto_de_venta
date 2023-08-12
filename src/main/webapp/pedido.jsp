@@ -25,7 +25,7 @@
 }
 
 .producto-img {
-    max-width: 100%;
+    width: 100%;
 }
 
 .producto-overlay {
@@ -49,7 +49,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 5px 10px;
     border-radius: 5px;
     font-family: cursive, sans-serif;
@@ -64,11 +64,17 @@
             <% 
             List<Producto> dataProductos = (List<Producto>) request.getAttribute("dataProductos");
             
+            
+            
+            
             if (dataProductos != null && !dataProductos.isEmpty()) {
                 for (Producto producto : dataProductos) { 
             %>
                 <div class="producto-item" id="producto<%=producto.getIdProducto()%>">
                     <div class="producto-overlay"></div>
+                    <%
+                    String photoPath = "/PuntoDeVenta/" + "upload/" + producto.getFoto();
+                    %>
                     <img class="producto-img" src="<%=producto.getFoto()%>" alt="Producto <%=producto.getIdProducto()%>">
                     <div class="producto-nombre">
                         Producto: <%=producto.getDescripcion()%><br>

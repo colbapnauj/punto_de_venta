@@ -28,12 +28,13 @@ public class ProductoModelo implements ProductoInterface{
 			
 			while (rs.next() ) {
 				
-				Producto documento = new Producto();
-				documento.setIdProducto(rs.getInt("id_producto"));
-				documento.setDescripcion(rs.getString("descripcion"));
-				documento.setPrecio(rs.getDouble("precio"));
+				Producto producto = new Producto();
+				producto.setIdProducto(rs.getInt("id_producto"));
+				producto.setDescripcion(rs.getString("descripcion"));
+				producto.setPrecio(rs.getDouble("precio"));
+				producto.setFoto(rs.getString("foto"));
 				
-				listaProductos.add(documento);
+				listaProductos.add(producto);
 				
 			}
 		} catch (Exception e) {
@@ -61,15 +62,24 @@ public class ProductoModelo implements ProductoInterface{
 		try {
 			cn = MysqlConexion.getConexion();
 			// TODO Load image
-			//String sql = "INSERT INTO producto VALUES(null, ?, ?, ?)";
+			
 			String sql = "INSERT INTO producto VALUES(null, ?, ?, null)";
+			
+			// si se envió una foto
+			boolean hasPhotoRawName = producto.getFotoRawName() != null; 
+			if (hasPhotoRawName) {
+				sql = "INSERT INTO producto VALUES(null, ?, ?, ?)";
+			}
+			
 			psm = cn.prepareStatement(sql);
+			
 			psm.setString(1, producto.getDescripcion());
 			psm.setDouble(2, producto.getPrecio());
-//			if (producto.getFoto() != null) {
-//				psm.setString(3, producto.getFoto());				
-//			}
 			
+			// si se envió una foto
+			if (hasPhotoRawName) {
+				psm.setString(3, producto.getFotoRawName());
+			}
 			
 			value = psm.executeUpdate();
 		} catch (Exception e) {
@@ -95,7 +105,7 @@ public class ProductoModelo implements ProductoInterface{
 		
 		try {
 			cn = MysqlConexion.getConexion();
-			String sql = "SELECT prod.* FROM producto AS prod WHERE idEstudiante=?";
+			String sql = "SELECT prod.* FROM producto AS prod WHERE id_producto=?";
 			psm = cn.prepareStatement(sql);
 			psm.setInt(1, idProducto);
 			rs = psm.executeQuery();
@@ -105,6 +115,7 @@ public class ProductoModelo implements ProductoInterface{
 				producto.setIdProducto(rs.getInt("id_producto"));
 				producto.setDescripcion(rs.getString("descripcion"));
 				producto.setPrecio(rs.getDouble("precio"));
+				producto.setFoto(rs.getString("foto"));
 				
 			}
 			
@@ -164,10 +175,25 @@ public class ProductoModelo implements ProductoInterface{
 		try {
 			cn = MysqlConexion.getConexion();
 			String sql = "UPDATE producto SET descripcion=?, precio=? WHERE id_producto=?";
+			
+			// si se envió una foto
+			boolean hasPhotoRawName = producto.getFotoRawName() != null; 
+			if (hasPhotoRawName) {
+				sql = "UPDATE producto SET descripcion=?, precio=?, foto=? WHERE id_producto=?";
+			}
+			
 			psm = cn.prepareStatement(sql);
 			psm.setString(1, producto.getDescripcion());
 			psm.setDouble(2, producto.getPrecio());
-			psm.setInt(3, producto.getIdProducto());
+			
+			if (hasPhotoRawName) {
+				psm.setString(3, producto.getFotoRawName());
+				psm.setInt(4, producto.getIdProducto());
+			} else {
+				psm.setInt(3, producto.getIdProducto());
+			}
+			
+			
 			
 			value = psm.executeUpdate();
 		} catch (Exception e) {

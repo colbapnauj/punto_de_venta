@@ -7,6 +7,14 @@ public class Producto {
 	private String foto;
 	
 	public String getFoto() {
+		if (this.foto == null) {
+			return "https://comidasperuanas.net/wp-content/uploads/2016/03/Chupe-de-camarones.webp";
+		}
+		
+		return "upload/" + foto;
+	}
+	
+	public String getFotoRawName() {
 		return foto;
 	}
 

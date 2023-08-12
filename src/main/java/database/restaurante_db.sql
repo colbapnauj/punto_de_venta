@@ -46,7 +46,7 @@ CREATE TABLE producto (
     id_producto INT PRIMARY KEY AUTO_INCREMENT,
     descripcion VARCHAR(100) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
-    foto VARCHAR(30) null
+    foto VARCHAR(120) null
 );
 
 
