@@ -74,6 +74,9 @@
                         Producto: <%=producto.getDescripcion()%><br>
                         Descripción: <%=producto.getDescripcion()%><br>
                         Precio: <%=producto.getPrecio()%>
+                        <br>
+                        <a class="btn btn-primary" href="pedido.jsp?type=info&idProducto=<%=producto.getIdProducto()%>">Editar</a>
+                        <a class="btn btn-danger" href="ProductoServlet?type=delete&idProducto=<%=producto.getIdProducto()%>">Eliminar</a>
                     </div>
                 </div>
             <% 
@@ -85,10 +88,26 @@
             } 
             %>
         </div>
+        <hr>
+        <h2 class="text-center">Crear Nuevo Producto</h2>
+        <form action="ProductoServlet?type=register" method="post">
+            <div class="form-group">
+                <label for="txtDescripcion">Descripción:</label>
+                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required>
+            </div>
+            <div class="form-group">
+                <label for="txtPrecio">Precio:</label>
+                <input type="number" step="0.01" class="form-control" id="txtPrecio" name="txtPrecio" required>
+            </div>
+            <!-- <div class="form-group">
+                <label for="file">Imagen:</label>
+                <input type="file" class="form-control-file" id="file" name="file">
+            </div> -->
+            <button type="submit" class="btn btn-success">Crear Producto</button>
+        </form>
     </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

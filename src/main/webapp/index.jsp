@@ -16,7 +16,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-image: url('img/fondo.jpg'); 
+	background-image: url('img/fondo.jpg'); /* Cambia 'ruta-de-tu-imagen.jpg' por la URL de tu imagen de fondo */
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -29,7 +29,7 @@ body {
 }
 
 .container {
-	background-color: rgba(200, 255, 200, 0.8); 
+	background-color: rgba(200, 255, 200, 0.8); /* Color de fondo verde claro */
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -37,7 +37,7 @@ body {
 
 .form-group label {
 	font-size: 20px;
-	color: #333; 
+	color: #333; /* Cambia el color de las etiquetas de texto si es necesario */
 }
 
 .form-control {
