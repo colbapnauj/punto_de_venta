@@ -25,4 +25,10 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>servlets.LoginServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>MesasServlet</display-name>
+    <servlet-name>MesasServlet</servlet-name>
+    <servlet-class>servlets.MesasServlet</servlet-class>
+  </servlet>
 </web-app>
