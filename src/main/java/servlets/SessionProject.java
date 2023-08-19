@@ -19,12 +19,12 @@ public class SessionProject {
 		req.getSession().invalidate();
 	}
 	
-	public String getSessionString(HttpServletRequest req, String key) {
-		HttpSession session = req.getSession();
+	public Object getSessionString(HttpServletRequest req, String key) {
+		HttpSession session = req.getSession(false);
 		if (session == null) {
 			return null;
 		}
 		
-		return (String) session.getAttribute(key);
+		return session.getAttribute(key);
 	}
 }

@@ -36,11 +36,15 @@ public class LoginServlet extends HttpServlet {
 			
 			if (empleado != null) {
 				SessionProject sessionProject = new SessionProject();
-				sessionProject.saveSessionTimeOut(request, 30);
+				sessionProject.saveSessionTimeOut(request, 30 * 60);
+				sessionProject.saveSessionString(request, Constantes.ID_USER, empleado.getIdPersona() + "");
 				sessionProject.saveSessionString(request, Constantes.NAME, empleado.getUsuario());
 				sessionProject.saveSessionString(request, Constantes.USERNAME, empleado.getUsuario());
 				sessionProject.saveSessionString(request, Constantes.ROL, empleado.getRol());
-				response.sendRedirect("index.jsp");
+				
+				System.out.println(sessionProject.getSessionString(request, Constantes.ID_USER));
+				String projectPath = getServletContext().getContextPath();
+				response.sendRedirect(projectPath + "/home");
 				System.out.println("logeado");
 			} else {
 				request.setAttribute("mensaje", "Credenciales incorrectas");

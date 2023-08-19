@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modelos.PedidoModelo;
 
 @WebServlet("/home")
@@ -43,6 +44,8 @@ public class HomeServlet extends HttpServlet {
 	
 	private void cargarMesas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		HttpSession session = req.getSession(false);
+		
 		PedidoModelo model = new PedidoModelo();
 		List<Mesa> listaMesas = model.obtenerMesas();
 		
@@ -51,7 +54,7 @@ public class HomeServlet extends HttpServlet {
 			resp.setCharacterEncoding("UTF-8");
 			
 			Gson gson = new Gson();
-			String json = gson.toJson(listaMesas);
+			String json = gson.toJson(session);
 			PrintWriter out = resp.getWriter();
 			out.write(json);
 			return;

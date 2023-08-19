@@ -3,6 +3,7 @@ package modelos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import db.MysqlConexion;
 import interfaces.PedidoInterface;
 import entidades.Pedido;
 import entidades.Producto;
+import entidades.ProductoCantidad;
 import entidades.PedidoProducto;
 import entidades.Mesa;
 
@@ -198,7 +200,60 @@ public class PedidoModelo implements PedidoInterface {
 	}
 	
 	@Override
-	public boolean crearPedido() {
+	public boolean crearPedido(int idUsuario, int idMesa, List<ProductoCantidad> productos) {
+		
+		Connection cn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			cn = MysqlConexion.getConexion();
+			cn.setAutoCommit(false);
+			
+			String query = "INSERT INTO pedido (id_empleado, id_mesa) VALUES (?, ?)";
+			ps = cn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, idUsuario);
+			ps.setInt(2, idMesa);
+			ps.executeUpdate();
+			
+			ResultSet generatedKeys = ps.getGeneratedKeys();
+			
+			if (generatedKeys.next()) {
+				int idPedido = generatedKeys.getInt(1);
+				
+				String detalleInsertQuery = "INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad)\r\n"
+						+ "VALUES\r\n"
+						+ "(?, ?, ?)";
+				
+				PreparedStatement psDetalle = cn.prepareStatement(detalleInsertQuery);
+				for (ProductoCantidad item : productos) {
+					psDetalle.setInt(1, idPedido);
+					psDetalle.setInt(2, item.getIdProducto());
+					psDetalle.setInt(3, item.getCantidad());
+					psDetalle.executeUpdate();
+				}
+			}
+			
+			cn.commit();
+			return true;
+			
+		} catch (Exception e) {
+			if (cn != null) {
+				try {
+					cn.rollback();					
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if (cn != null) cn.close();
+				if (ps != null) ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		
 		return false;
 	}
 	

@@ -54,6 +54,7 @@ body {
     <div class="container">
         <h1 class="mt-5">Inicio de Sesión</h1>
         <form action="LoginServlet" method="post" class="mt-3">
+
             <div class="mb-3">
                 <label for="username" class="form-label">Usuario</label>
                 <input type="text" name="txtUsername" id="username" class="form-control" required>

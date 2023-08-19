@@ -21,7 +21,7 @@ public class AuthModel implements AuthInterface{
 		try {
 			
 			cn = MysqlConexion.getConexion();
-			String mysql = "SELECT id_persona, em.usuario, pe.nombre, ro.nombre AS role_name, em.password\r\n"
+			String mysql = "SELECT pe.id_persona, em.usuario, pe.nombre, ro.nombre AS role_name, em.password\r\n"
 					+ "FROM empleado AS em\r\n"
 					+ "INNER JOIN persona AS pe ON em.id_persona = pe.id_persona\r\n"
 					+ "INNER JOIN roles AS ro ON em.id_role = ro.id_role\r\n"
