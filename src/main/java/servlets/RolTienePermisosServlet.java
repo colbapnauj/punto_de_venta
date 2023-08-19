@@ -24,7 +24,7 @@ public class RolTienePermisosServlet extends HttpServlet {
 	
 	public static final String ID = "idRol";
     
-    private static boolean debugMode = true;
+    private static boolean debugMode = false;
 
     @Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

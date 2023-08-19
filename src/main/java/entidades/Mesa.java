@@ -3,14 +3,16 @@ package entidades;
 public class Mesa {
 	private int idMesa;
 	private String descripcion;
+	private int cantidadPedidos;
 	
 	public Mesa() {
 	}
 	
-	public Mesa(int idMesa, String descripcion) {
+	public Mesa(int idMesa, String descripcion, int cantidadPedidos) {
 		super();
 		this.idMesa = idMesa;
 		this.descripcion = descripcion;
+		this.cantidadPedidos = cantidadPedidos;
 	}
 	
 	public int getIdMesa() {
@@ -25,6 +27,11 @@ public class Mesa {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+	public int getCantidadPedidos() {
+		return cantidadPedidos;
+	}
+	public void setCantidadPedidos(int cantidadPedidos) {
+		this.cantidadPedidos = cantidadPedidos;
+	}
 	
 }

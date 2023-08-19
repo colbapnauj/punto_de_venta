@@ -63,12 +63,14 @@ CREATE TABLE pedido (
     id_pedido INT PRIMARY KEY AUTO_INCREMENT,
     id_empleado INT NOT NULL,
     id_mesa INT NOT NULL,
+    estado BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_empleado) REFERENCES empleado(id_persona),
     FOREIGN KEY (id_mesa) REFERENCES mesa(id_mesa)
 );
 
-
-CREATE TABLE pedido_producto (
+CREATE TABLE detalle_pedido(
     id_pedido INT,
     id_producto INT,
     cantidad INT NOT NULL,
@@ -118,8 +120,11 @@ INSERT INTO mesa (descripcion) VALUES ('Mesa 3');
 
 
 INSERT INTO pedido (id_empleado, id_mesa) VALUES (1, 1);
-INSERT INTO pedido_producto (id_pedido, id_producto, cantidad) VALUES (1, 1, 2);
-INSERT INTO pedido_producto (id_pedido, id_producto, cantidad) VALUES (1, 2, 1);
+INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad) VALUES (1, 1, 2);
+INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad) VALUES (1, 2, 1);
+
+INSERT INTO pedido (id_empleado, id_mesa) VALUES (1, 2);
+INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad) VALUES (2, 2, 3);
 
 INSERT INTO comprobante_pago (id_pedido, id_cliente, tipo_comprobante, fecha, igv, total) VALUES (1, 1, 'Boleta', '2023-08-06', 27.54, 32.50);
 

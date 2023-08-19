@@ -26,7 +26,7 @@ public class PermisosServlet extends HttpServlet {
     
     public static final String ID = "idPermiso";
     
-    private static boolean debugMode = true;
+    private static boolean debugMode = false;
 
     @Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -75,7 +75,7 @@ public class PermisosServlet extends HttpServlet {
 						
 			
 			Gson gson = new Gson();
-			String json= gson.toJson(dataPermisos);
+			String json = gson.toJson(dataPermisos);
 			PrintWriter out = resp.getWriter();
 			out.write(json);
 		} else {
