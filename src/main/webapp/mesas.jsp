@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mesas</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -58,6 +58,14 @@
 	border-radius: 5px;
 	font-family: cursive, sans-serif;
 }
+
+ @media only screen and (min-width: 768px) {
+ 
+ 	.mesa-item {
+ 		width: 200px;
+ 	}
+ }
+
 </style>
 </head>
 <body
@@ -66,30 +74,21 @@
 	<div class="mesa-container">
 		<%
 		List<Mesa> listaMesas = (List<Mesa>) request.getAttribute("listaMesas");
-		List<Integer> estados = (List<Integer>) request.getAttribute("estados");
 		if (listaMesas != null && !listaMesas.isEmpty()) {
 
-			for (int i = 0; i < listaMesas.size(); i++) {
-				Mesa mesa = listaMesas.get(i);
-				int estado = estados.get(i);
+			for (Mesa mesa : listaMesas) {
 		%>
-		<a href="pedido.jsp?mesa=<%=i + 1%>">
-			<div class="mesa-item" id="mesa<%=i + 1%>">
+		<a href="pedido.jsp?mesa=<%=mesa.getIdMesa()%>">
+			<div class="mesa-item" id="mesa<%=mesa.getIdMesa()%>">
 				<div class="mesa-overlay"></div>
-				<img class="mesa-img" id="mesaImg<%=i + 1%>" alt="Mesa <%=i + 1%>">
+				<span><%=mesa.getDescripcion() %></span>
+				<img src="<%=mesa.getCantidadPedidos() < 1  ? "img/mesaRoja.png" : "img/mesaVerde.png" %>" 
+					class="mesa-img" alt="Mesa <%=mesa.getIdMesa()%>">
 			</div>
 		</a>
-		<script>
-            var mesaImg<%=i + 1%> = document.getElementById("mesaImg<%=i + 1%>
-			");
-			mesaImg
-		<%=i + 1%>
-			.src =
-		<%=estado == 1 ? "'img/mesaVerde.png'" : "'img/mesaRoja.png'"%>
-			;
-		</script>
+
 		<%
-		}
+			}
 		} else {
 		%>
 		<p>No hay mesas disponibles.</p>
@@ -99,16 +98,9 @@
 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script>
-		for (var i = 0; i < estados.length; i++) {
-			var mesaImg = document.getElementById("mesaImg" + (i + 1));
-			mesaImg.src = estados[i] === 1 ? 'img/mesaVerde.png'
-					: 'img/mesaRoja.png';
-		}
 	</script>
 </body>
 </html>

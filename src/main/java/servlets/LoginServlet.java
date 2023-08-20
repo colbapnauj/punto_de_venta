@@ -55,7 +55,8 @@ public class LoginServlet extends HttpServlet {
 			
 			SessionProject sessionProject = new SessionProject();
 			sessionProject.invalidateSession(request);
-			response.sendRedirect("index.jsp");
+			String projectPath = getServletContext().getContextPath();
+			response.sendRedirect(projectPath + "/");
 		} else if (type.equals("create")) {
 			
 			String password = request.getParameter("txtPassword");

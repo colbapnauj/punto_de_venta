@@ -4,6 +4,8 @@
 <%@ page import="modelos.PedidoModelo"%>
 <%@ page import="entidades.Pedido"%>
 <%@ page import="entidades.PedidoProducto"%>
+<%@ page import="servlets.Constantes"%>
+<%@ page import="jakarta.servlet.http.HttpSession"%>
 
 <!DOCTYPE html>
 <html>
@@ -37,8 +39,10 @@ html, body {
 <body
 	style="background-image: url('img/fondo.jpg'); background-size: cover; background-repeat: repeat-y; width: 100%; height: 100%; margin: 0; padding: 0;">
 	<%@ include file="menu.jsp"%>
+	<diV class="container">
 	<div class="container2 mt-5">
 		<h3>Lista de Pedidos</h3>
+		
 		<table class="table">
 			<thead>
 				<tr>
@@ -70,6 +74,7 @@ html, body {
 			</tbody>
 		</table>
 	</div>
+	<div>
 
 <div class="container mt-3">
     <div id="pedido-details">
@@ -77,17 +82,32 @@ html, body {
         <%
         String idPedidoParameter = request.getParameter("idPedido");
         out.println("idPedido Parameter: " + idPedidoParameter);
+        
+        
+        
 
         if (idPedidoParameter != null) {
+        	HttpSession sessionLocal = request.getSession(false);
+        	if (sessionLocal == null) {
+        		return;
+        	}
+        	String idUser = (String) sessionLocal.getAttribute(Constantes.ID_USER);
+        	if (idUser == null) {
+        		out.println("<div class=\"alert alert-warning\">Sesión no encontrada</div>");
+        		return;
+        	}
+        	Pedido pedido = (Pedido) pedidoModelo.obtenerPedidoConDetalle(Integer.parseInt(idPedidoParameter), Integer.parseInt(idUser));
+        	
             try {
                 int idPedidoSeleccionado = Integer.parseInt(idPedidoParameter);
                 Pedido pedidoSeleccionado = null;
-                for (Pedido pedido : listaPedidos) {
+        		pedidoSeleccionado = pedido;
+                /* for (Pedido pedido : listaPedidos) {
                     if (pedido.getIdPedido() == idPedidoSeleccionado) {
                         pedidoSeleccionado = pedido;
                         break;
                     }
-                }
+                } */
 
                 if (pedidoSeleccionado != null && pedidoSeleccionado.getDetalle() != null
                         && !pedidoSeleccionado.getDetalle().isEmpty()) {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="servlets.Constantes"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,22 @@ body {
 </style>
 </head>
 <body>
+
+	<%
+	// si existe sessión redireccionar a home
+	String idUser = (String) session.getAttribute(Constantes.ID_USER);
+	if (idUser != null) {
+		String projectName = getServletContext().getContextPath();
+		response.sendRedirect(projectName  + "/home");
+	}
+	
+	%>
+	
+    
     <div class="container">
+    	<% if (request.getAttribute("mensaje") != null) { %>
+    		<div class="alert alert-warning">${mensaje}</div>
+    	<%} %>
         <h1 class="mt-5">Inicio de Sesión</h1>
         <form action="LoginServlet" method="post" class="mt-3">
 

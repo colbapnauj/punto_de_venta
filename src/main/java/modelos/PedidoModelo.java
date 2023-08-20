@@ -28,7 +28,7 @@ public class PedidoModelo implements PedidoInterface {
 		
 		try {
 			cn = MysqlConexion.getConexion();
-			String consulta = "SELECT * from pedido";
+			String consulta = "SELECT * from pedido where estado = 1";
 			ps = cn.prepareStatement(consulta);
 			rs = ps.executeQuery();
 			

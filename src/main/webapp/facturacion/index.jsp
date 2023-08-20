@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page import="entidades.Pedido" %>
+<%@ page import="entidades.PedidoProducto" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -33,14 +34,14 @@
 					
 					<% 
 						if (pedido != null) {
-							for (PedidoProducto detalle: pedido.getDetalle())
+							for (PedidoProducto detalle: pedido.getDetalle()) {
 							
 								%>
 						<tr>
-							<th scope="row"><%=i+1%></th>
-							<td><%=producto.getDescripcion() %></td>
-							<td><%=producto.getPrecio() %></td>
-							<td>@mdo</td>
+							<%-- <th scope="row"><%=i+1%></th> --%>
+							<%-- <td><%=producto.getDescripcion() %></td>
+							<td><%=producto.getPrecio() %></td> --%>
+							
 						</tr>			
 					
 					

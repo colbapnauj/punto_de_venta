@@ -42,9 +42,10 @@ h3 {
 </style>
 </head>
 <body>
+<% String projectName = getServletContext().getContextPath(); %>
 	<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
 		<div class="container">
-			<a class="navbar-brand" href="#">Restaurante</a>
+			<a class="navbar-brand" href="<%=projectName + "/"%>">Restaurante</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -52,10 +53,10 @@ h3 {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav ml-auto">
-					<a class="nav-link active" aria-current="page" href="mesas.jsp">Home</a>
+					<a class="nav-link active" aria-current="page" href="<%=projectName + "/home" %>">Home</a>
 					<a class="nav-link" href="configuracion.jsp">Configuracion</a> <a
 						class="nav-link" href="caja.jsp">Caja</a> <a class="nav-link"
-						aria-disabled="true" href="index.jsp">Cerrar sesión</a>
+						aria-disabled="true" href="<%=getServletContext().getContextPath() + "/LoginServlet?type=logout" %>">Cerrar sesión</a>
 				</div>
 			</div>
 		</div>
