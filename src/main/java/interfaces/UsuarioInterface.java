@@ -8,4 +8,6 @@ public interface UsuarioInterface {
   public List<Empleado> obtenerEmpleados();
   
   public int crearUsuario(Empleado usuario, String plainPsw);
+  
+  public int actualizarUsuario(Empleado usuario, String plainPsw);
 }

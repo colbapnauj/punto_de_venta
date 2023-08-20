@@ -8,6 +8,7 @@ import db.MysqlConexion;
 import entidades.Empleado;
 import interfaces.AuthInterface;
 import utils.BCrypt;
+import utils.Utils;
 
 public class AuthModel implements AuthInterface{
 
@@ -37,7 +38,7 @@ public class AuthModel implements AuthInterface{
 			
 			
 			
-			String hashedPassword = hashPassword(password);
+			String hashedPassword = Utils.hashPassword(password);
 			System.out.println(hashedPassword);
 			// boolean isValid = BCrypt.checkpw(password, hashedPassword);
 			// System.out.println(isValid);
@@ -67,11 +68,7 @@ public class AuthModel implements AuthInterface{
 		return empleado;
 		
 	}
-	
-	public String hashPassword(String plainPassword) {
-        String salt = BCrypt.gensalt();
-        return  BCrypt.hashpw(plainPassword, salt);
-    }
+
 	
 	
 	

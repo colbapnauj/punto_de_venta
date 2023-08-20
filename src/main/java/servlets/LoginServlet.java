@@ -10,6 +10,7 @@ import java.io.IOException;
 import entidades.Empleado;
 import interfaces.AuthInterface;
 import modelos.AuthModel;
+import utils.Utils;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -62,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("txtPassword");
 			
 			AuthModel model= new AuthModel();
-			String hashedPassword = model.hashPassword(password);
+			String hashedPassword = Utils.hashPassword(password);
 			System.out.println(hashedPassword);
 			response.sendRedirect("index.jsp");
 			
