@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ page import="entidades.Mesa"%>
+<%@ page import="java.util.List"%>
+<%@ page import="modelos.MesaModelo"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,27 +62,41 @@
 </head>
 <body
 	style="background-image: url('img/fondo.jpg'); background-size: cover; background-repeat: repeat-y; width: 100%; height: 100%; margin: 0; padding: 0;">
-	>
 	<%@ include file="menu.jsp"%>
 	<div class="mesa-container">
 		<%
-		int cantidadMesas = 12;
+		List<Mesa> listaMesas = (List<Mesa>) request.getAttribute("listaMesas");
+		List<Integer> estados = (List<Integer>) request.getAttribute("estados");
+		if (listaMesas != null && !listaMesas.isEmpty()) {
+
+			for (int i = 0; i < listaMesas.size(); i++) {
+				Mesa mesa = listaMesas.get(i);
+				int estado = estados.get(i);
 		%>
-		<%
-		for (int i = 1; i <= cantidadMesas; i++) {
-		%>
-		<a href="pedido.jsp?mesa=<%=i%>">
-			<div class="mesa-item" id="mesa<%=i%>">
+		<a href="pedido.jsp?mesa=<%=i + 1%>">
+			<div class="mesa-item" id="mesa<%=i + 1%>">
 				<div class="mesa-overlay"></div>
-				<img class="mesa-img" src="img/mesaVerde.png" alt="Mesa <%=i%>">
-				<div class="mesa-nombre">
-					Mesa
-					<%=i%></div>
+				<img class="mesa-img" id="mesaImg<%=i + 1%>" alt="Mesa <%=i + 1%>">
 			</div>
 		</a>
+		<script>
+            var mesaImg<%=i + 1%> = document.getElementById("mesaImg<%=i + 1%>
+			");
+			mesaImg
+		<%=i + 1%>
+			.src =
+		<%=estado == 1 ? "'img/mesaVerde.png'" : "'img/mesaRoja.png'"%>
+			;
+		</script>
+		<%
+		}
+		} else {
+		%>
+		<p>No hay mesas disponibles.</p>
 		<%
 		}
 		%>
+
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script
@@ -86,27 +104,11 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script>
-		var cantidadMesas =
-	<%=cantidadMesas%>
-		;
-		var mesaEstado = [];
-		for (var i = 0; i < cantidadMesas; i++) {
-			mesaEstado.push(0);
+		for (var i = 0; i < estados.length; i++) {
+			var mesaImg = document.getElementById("mesaImg" + (i + 1));
+			mesaImg.src = estados[i] === 1 ? 'img/mesaVerde.png'
+					: 'img/mesaRoja.png';
 		}
-		function actualizarMesas() {
-			var mesaImgs = document.getElementsByClassName("mesa-img");
-			for (var i = 0; i < cantidadMesas; i++) {
-				if (mesaEstado[i] === 0) {
-					mesaImgs[i].src = "img/mesaVerde.png";
-				} else {
-					mesaImgs[i].src = "img/mesaRoja.png";
-				}
-			}
-		}
-		actualizarMesas();
-		setInterval(function() {
-			actualizarMesas();
-		}, 3000);
 	</script>
 </body>
 </html>
