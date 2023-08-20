@@ -82,13 +82,15 @@ CREATE TABLE detalle_pedido(
 CREATE TABLE comprobante_pago (
     id_comprobante INT PRIMARY KEY AUTO_INCREMENT,
     id_pedido INT NOT NULL,
-    id_cliente INT NOT NULL,
+    id_cliente INT NULL,
     tipo_comprobante VARCHAR(50) NOT NULL,
-    fecha TIMESTAMP NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     igv DECIMAL(10, 2) NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
+    created_by INT NULL,
     FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id_persona)
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_persona),
+    FOREIGN KEY (created_by) REFERENCES empleado(id_persona)
 );
 
 USE restaurante_db;
@@ -104,11 +106,13 @@ INSERT INTO permisos (nombre) VALUES ('crear_usuarios');
 
 INSERT INTO persona (nombre, tipo_documento, documento) VALUES ('Juan Pérez', 'DNI', '12345678');
 INSERT INTO persona (nombre, tipo_documento, documento) VALUES ('María Gómez', 'RUC', '87654321');
+INSERT INTO persona (nombre, tipo_documento, documento) VALUES ('Admin', 'DNI', '00000000');
 
 INSERT INTO cliente (id_persona) VALUES (1);
 
 INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (1, 1, 'usuario1', '$2a$10$tgj9nkzsOd9t.u9bSszxDOXmYG1eNBO56T5nxRp0GVIiIMcqNOT9W');
 INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (2, 2, 'usuario2', '$2a$10$tgj9nkzsOd9t.u9bSszxDOXmYG1eNBO56T5nxRp0GVIiIMcqNOT9W');
+INSERT INTO empleado (id_persona, id_role, usuario, password) VALUES (3, 1, 'admin', '$2a$10$tgj9nkzsOd9t.u9bSszxDOXmYG1eNBO56T5nxRp0GVIiIMcqNOT9W');
 
 INSERT INTO producto (descripcion, precio) VALUES ('Pizza Margarita', 10.99);
 INSERT INTO producto (descripcion, precio) VALUES ('Hamburguesa Clásica', 8.50);

@@ -47,7 +47,7 @@ public class ComprobanteDePago {
 	}
 	
 	public double getIGV() {
-		return this.getTotal() / (1 + PORCENTAJE_IGV);
+		return this.total - this.getTotal() / (1 + PORCENTAJE_IGV);
 	}
 	
 

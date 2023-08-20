@@ -1,15 +1,16 @@
 package modelos;
 
-import interfaces.FacturacionInterface;
+import interfaces.CajaInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import db.MysqlConexion;
 import entidades.ComprobanteDePago;
 
-public class FacturacionModel implements FacturacionInterface {
+public class CajaModel implements CajaInterface {
 	
 	private static final String TIPO_COMPROBANTE= "Boleta"; 
 
@@ -67,5 +68,41 @@ public class FacturacionModel implements FacturacionInterface {
 		
 		return false;
 	}
+
+  @Override
+  public double obtenerTotalDePedido(int idPedido) {
+    Connection cn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    double total = 0;
+    
+    try {
+      cn = MysqlConexion.getConexion();
+      String query = "SELECT p.id_pedido, p.estado, SUM(prod.precio * dp.cantidad) AS total FROM pedido AS p\r\n"
+          + "JOIN detalle_pedido AS dp ON dp.id_pedido = p.id_pedido\r\n"
+          + "JOIN producto AS prod ON prod.id_producto = dp.id_producto\r\n"
+          + "WHERE p.id_pedido = ?\r\n"
+          + "GROUP BY p.id_pedido;";
+      ps = cn.prepareStatement(query);
+      ps.setInt(1, idPedido);
+      rs = ps.executeQuery();
+      
+      if (rs.next()) {
+        total = rs.getDouble("total");
+      }
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (rs != null) rs.close();
+        if (ps != null) ps.close();       
+        if (cn != null) cn.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    return total;
+  }
 
 }
