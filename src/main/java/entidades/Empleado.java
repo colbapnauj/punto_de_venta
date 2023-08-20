@@ -1,15 +1,13 @@
 package entidades;
 
 public class Empleado extends Persona{
-	private int idPersona;
 	private int idRole;
 	private String usuario;
 	private String rol;
 
-	public Empleado(int idPersona, String nombre, String tipoDocumento, String doucmento, int idPersona2, int idRole,
+	public Empleado(int idPersona, String nombre, String tipoDocumento, String doucmento, int idRole,
 			String usuario, String password, String rol) {
 		super(idPersona, nombre, tipoDocumento, doucmento);
-		idPersona = idPersona2;
 		this.idRole = idRole;
 		this.usuario = usuario;
 		this.rol = rol;
@@ -19,12 +17,6 @@ public class Empleado extends Persona{
 		
 	}
 	
-	public int getIdPersona() {
-		return idPersona;
-	}
-	public void setIdPersona(int idPersona) {
-		this.idPersona = idPersona;
-	}
 	public int getIdRole() {
 		return idRole;
 	}

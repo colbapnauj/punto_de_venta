@@ -63,6 +63,8 @@ html, body {
 					<td><%=pedido.getIdPedido()%></td>
 					<td><%=pedido.getIdEmpleado()%></td>
 					<td><%=pedido.getIdMesa()%></td>
+			
+					
 					<td><a
 						href="verpedidos.jsp?idPedido=<%=pedido.getIdPedido()%>#pedido-details"
 						class="ver-detalles">Ver Detalles</a></td>

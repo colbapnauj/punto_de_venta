@@ -3,26 +3,32 @@ package entidades;
 import java.util.List;
 
 public class Pedido {
+  // FIXME: Debería ser createdBy
 	private int idPedido;
-	// FIXME: Debería ser createdBy
 	private int idEmpleado;
 	private int idMesa;
+	private String usuario;
+	private String createdAt;
 	private String mesa;
 	private List<PedidoProducto> detalle;
-	
+
 	public Pedido() {
-		super();
-	}
+    super();
+  }
 
-	public Pedido(int idPedido, int idEmpleado, int idMesa, List<PedidoProducto> detalle) {
-		super();
-		this.idPedido = idPedido;
-		this.idEmpleado = idEmpleado;
-		this.idMesa = idMesa;
-		this.detalle = detalle;
-	}
+  public Pedido(int idPedido, int idEmpleado, int idMesa, String usuario, String createdAt, String mesa,
+      List<PedidoProducto> detalle) {
+    super();
+    this.idPedido = idPedido;
+    this.idEmpleado = idEmpleado;
+    this.idMesa = idMesa;
+    this.usuario = usuario;
+    this.createdAt = createdAt;
+    this.mesa = mesa;
+    this.detalle = detalle;
+  }
 
-	public int getIdPedido() {
+  public int getIdPedido() {
 		return idPedido;
 	}
 
@@ -61,4 +67,22 @@ public class Pedido {
 	public void setMesa(String mesa) {
 		this.mesa = mesa;
 	}
+
+  public String getUsuario() {
+    return usuario;
+  }
+
+  public void setUsuario(String usuario) {
+    this.usuario = usuario;
+  }
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+  }
+	
+	
 }

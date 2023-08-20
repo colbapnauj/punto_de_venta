@@ -28,7 +28,19 @@ public class PedidoModelo implements PedidoInterface {
 		
 		try {
 			cn = MysqlConexion.getConexion();
-			String consulta = "SELECT * from pedido where estado = 1";
+			// Pedidos activos - estado 1
+			String consulta = "SELECT \r\n"
+			    + "  p.id_pedido, \r\n"
+			    + "  p.id_empleado, \r\n"
+			    + "  per.nombre, \r\n"
+			    + "  p.id_mesa, \r\n"
+			    + "  m.descripcion,\r\n"
+			    + "  p.created_at\r\n"
+			    + "FROM pedido AS p\r\n"
+			    + "JOIN persona AS per ON per.id_persona = p.id_empleado\r\n"
+			    + "JOIN mesa AS m ON m.id_mesa = p.id_mesa\r\n"
+			    + "where estado = 1"
+			    + "";
 			ps = cn.prepareStatement(consulta);
 			rs = ps.executeQuery();
 			
@@ -36,7 +48,11 @@ public class PedidoModelo implements PedidoInterface {
 				Pedido pedido = new Pedido();
 				pedido.setIdPedido(rs.getInt("id_pedido"));
 				pedido.setIdEmpleado(rs.getInt("id_empleado"));
+				pedido.setUsuario(rs.getString("nombre"));
 				pedido.setIdMesa(rs.getInt("id_mesa"));
+				pedido.setMesa(rs.getString("descripcion"));
+				pedido.setCreatedAt(rs.getString("created_at"));
+				
 				
 				listaPedidos.add(pedido);
 			}
