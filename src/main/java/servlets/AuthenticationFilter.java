@@ -16,11 +16,18 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter {
 
+	private static boolean debugMode = true;
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		
+		if (debugMode) {
+			chain.doFilter(request, response);
+			return;
+		}
 		
 		String path = httpRequest.getServletPath();
 		System.out.println(path);

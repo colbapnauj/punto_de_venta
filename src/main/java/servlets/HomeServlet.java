@@ -44,7 +44,7 @@ public class HomeServlet extends HttpServlet {
 	
 	private void cargarMesas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		HttpSession session = req.getSession(false);
+		// HttpSession session = req.getSession(false);
 		
 		PedidoModelo model = new PedidoModelo();
 		List<Mesa> listaMesas = model.obtenerMesas();
@@ -54,7 +54,7 @@ public class HomeServlet extends HttpServlet {
 			resp.setCharacterEncoding("UTF-8");
 			
 			Gson gson = new Gson();
-			String json = gson.toJson(session);
+			String json = gson.toJson(listaMesas);
 			PrintWriter out = resp.getWriter();
 			out.write(json);
 			return;
