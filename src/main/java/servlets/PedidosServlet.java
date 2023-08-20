@@ -31,7 +31,7 @@ public class PedidosServlet extends HttpServlet {
 		super();
 	}
 	
-	private static boolean debugMode = true ;
+	private static boolean debugMode = false;
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

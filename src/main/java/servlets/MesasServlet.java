@@ -26,7 +26,7 @@ public class MesasServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private static boolean debugMode = true;
+    private static boolean debugMode = false;
 
     @Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
