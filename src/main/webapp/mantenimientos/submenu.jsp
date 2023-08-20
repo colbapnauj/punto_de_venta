@@ -60,9 +60,9 @@ h3 {
 							aria-expanded="false"> Configuración </a>
 						<div class="dropdown-menu" aria-labelledby="configDropdown">
 							<a class="dropdown-item"
-								href="<%=request.getContextPath()%>/mantenimientos/productos.jsp">Productos</a>
+								href="<%=request.getContextPath()%>/productos.jsp">Productos</a>
 							<a class="dropdown-item"
-								href="<%=request.getContextPath()%>/mantenimientos/usuarios.jsp">Usuarios</a>
+								href="<%=request.getContextPath()%>/usuarios.jsp">Usuarios</a>
 						</div>
 					</div>
 					<a class="nav-link"
